@@ -47,7 +47,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
 	git clone https://${SECRETUSER}:${SECRETPASS}@github.com/HDDcoin-Network/hddcoin-blockchain-beta.git \
 		/hddcoin-blockchain \		
-	&& git submodule update --init \
 	&& sh install.sh \
 # cleanup
 	&& rm -rf \
