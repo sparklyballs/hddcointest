@@ -44,10 +44,10 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # build package
 RUN \
 	if [ -z ${RELEASE+x} ]; then \
-	RELEASE=$(curl -u "${SECRETUSER}:${SECRETPASS}" -sX GET "https://api.github.com/repos/HDDcoin-Network/hddcoin-blockchain/releases/latest" \
+	RELEASE=$(curl -u "${SECRETUSER}:${SECRETPASS}" -sX GET "https://api.github.com/repos/felixbrucker/hddcoin-blockchain/releases/latest" \
 	| jq -r ".tag_name"); \
 	fi \
-	&& git clone -b "${RELEASE}" --recurse-submodules https://github.com/HDDcoin-Network/hddcoin-blockchain.git \
+	&& git clone -b "${RELEASE}" --recurse-submodules https://github.com/felixbrucker/hddcoin-blockchain.git \
 		/hddcoin-blockchain \		
 	&& sh install.sh \
 # cleanup
