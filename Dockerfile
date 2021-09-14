@@ -4,6 +4,8 @@ FROM ubuntu:${UBUNTU_VER} as packages
 # build arguments
 ARG DEBIAN_FRONTEND=noninteractive
 ARG RELEASE
+ARG SECRETUSER
+ARG SECRETPASS
 
 # environment variables
 ENV \
@@ -43,12 +45,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # build package
 RUN \
-	if [ -z ${RELEASE+x} ]; then \
-	RELEASE=$(curl -u "${SECRETUSER}:${SECRETPASS}" -sX GET "https://api.github.com/repos/HDDcoin-Network/hddcoin-blockchain/releases/latest" \
-	| jq -r ".tag_name"); \
-	fi \
-	&& git clone -b "${RELEASE}" --recurse-submodules https://github.com/HDDcoin-Network/hddcoin-blockchain.git \
+	git clone https://${SECRETUSER}:${SECRETPASS}@github.com/HDDcoin-Network/hddcoin-blockchain-beta.git \
 		/hddcoin-blockchain \		
+	&& git submodule update --init \
 	&& sh install.sh \
 # cleanup
 	&& rm -rf \
