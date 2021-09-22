@@ -4,6 +4,8 @@ FROM ubuntu:${UBUNTU_VER}
 # build arguments
 ARG DEBIAN_FRONTEND=noninteractive
 ARG RELEASE
+ARG SECRETUSER
+ARG SECRETPASS
 
 # environment variables
 ENV \
