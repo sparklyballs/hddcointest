@@ -4,8 +4,6 @@ FROM ubuntu:${UBUNTU_VER}
 # build arguments
 ARG DEBIAN_FRONTEND=noninteractive
 ARG RELEASE
-ARG SECRETUSER
-ARG SECRETPASS
 
 # environment variables
 ENV \
@@ -18,9 +16,6 @@ ENV \
 	plots_dir="/plots" \
 	testnet="false" \
 	TZ="UTC"
-
-# set workdir for build stage
-WORKDIR /hddcoin-blockchain
 
 # install dependencies
 RUN \
@@ -54,6 +49,9 @@ RUN \
 		/var/lib/apt/lists/* \
 		/var/tmp/*
 
+# set workdir for build stage
+WORKDIR /hddcoin-blockchain
+
 # set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -62,7 +60,15 @@ RUN \
 	git clone https://${SECRETUSER}:${SECRETPASS}@github.com/HDDcoin-Network/hddcoin-blockchain-beta.git \
 		/hddcoin-blockchain \		
 	&& git submodule update --init mozilla-ca \
-	&& sh install.sh
+	&& sh install.sh \
+	\
+# cleanup
+	\
+	&& rm -rf \
+		/root/.cache \
+		/tmp/* \
+		/var/lib/apt/lists/* \
+		/var/tmp/*
 
 # set additional runtime environment variables
 ENV \
