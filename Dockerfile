@@ -22,9 +22,7 @@ WORKDIR /hddcoin-blockchain
 
 # fetch source
 RUN \
-	git clone https://${SECRETUSER}:${SECRETPASS}@github.com/HDDcoin-Network/hddcoin-blockchain-beta.git \
-		/hddcoin-blockchain \		
-	&& git submodule update --init mozilla-ca \
+	git clone https://${SECRETUSER}:${SECRETPASS}@github.com/HDDcoin-Network/hddcoin-blockchain-beta.git . \
 	&& /bin/sh ./install.sh
 
 FROM python:3.9-slim
