@@ -1,4 +1,4 @@
-FROM python:3.9 AS hddcoin_build
+FROM python:3.11 AS hddcoin_build
 
 # build arguments
 ARG DEBIAN_FRONTEND=noninteractive 
@@ -30,7 +30,7 @@ RUN \
 	&& git clone --branch "${RELEASE}" --recurse-submodules=mozilla-ca https://github.com/HDDcoin-Network/hddcoin-blockchain.git . \
 	&& /bin/sh ./install.sh
 
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # build arguments
 ARG DEBIAN_FRONTEND=noninteractive
